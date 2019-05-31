@@ -7,7 +7,7 @@ if argsDict['mode'] == 'train':
     print("loading data now...")
     #training data
     
-    hard = np.loadtxt(trainingDir+"hard.fvec",skiprows=1)
+    hard = np.loadtxt(trafiningDir+"hard.fvec",skiprows=1)
     nDims = int(hard.shape[1] / numSubWins)
     h1 = np.reshape(hard,(hard.shape[0],nDims,numSubWins))
     neut = np.loadtxt(trainingDir+"neut.fvec",skiprows=1)
@@ -19,7 +19,11 @@ if argsDict['mode'] == 'train':
     lhard = np.loadtxt(trainingDir+"linkedHard.fvec",skiprows=1)
     lh1 = np.reshape(lhard,(lhard.shape[0],nDims,numSubWins))
 
+    # concentenate all of those into 1 numpy array
     both=np.concatenate((h1,n1,s1,ls1,lh1))
+    
+    # generate int label for h1 and such:
+   
     y=np.concatenate((np.repeat(0,len(h1)),np.repeat(1,len(n1)), np.repeat(2,len(s1)), np.repeat(3,len(ls1)), np.repeat(4,len(lh1))))
 
     #reshape both to explicitly set depth image. need for theanno not sure with tensorflow
